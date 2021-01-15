@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +19,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Button button_1 = (Button) findViewById(R.id.button1);
         button_1.setOnClickListener(this);
+
+        Button button_jniarraytest = (Button) findViewById(R.id.button_jniarraytest);
+        button_jniarraytest.setOnClickListener(this);
 
         // Example of a call to a native method
         MediaRecorder mMediaRecorder= new MediaRecorder();
@@ -35,6 +39,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.button1) {
             JniFuncTest mJniFuncTest = new JniFuncTest();
             mJniFuncTest.testOnce();
+        } else if (v.getId() == R.id.button_jniarraytest) {
+            JniArrayTest mJniArrayTest = new JniArrayTest();
+            int [] rtn = mJniArrayTest.intArray(JniArrayTest.int_array);
+            for(int i=0;i<rtn.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn[i]="+rtn[i]);
+            }
+            mJniArrayTest.stringArray(JniArrayTest.string_array);
         }
     }
 }
