@@ -41,10 +41,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mJniFuncTest.testOnce();
         } else if (v.getId() == R.id.button_jniarraytest) {
             JniArrayTest mJniArrayTest = new JniArrayTest();
-            int [] rtn = mJniArrayTest.intArray(JniArrayTest.int_array);
-            for(int i=0;i<rtn.length;i++) {
-                Log.d(TAG,"返回至Java层的rtn[i]="+rtn[i]);
+
+            boolean [] rtn_boolean = mJniArrayTest.booleanArray(JniArrayTest.boolean_array);
+            for(int i=0;i<rtn_boolean.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn_boolean[i]="+rtn_boolean[i]);
             }
+
+            byte [] rtn_byte = mJniArrayTest.byteArray(JniArrayTest.byte_array);
+            for(int i=0;i<rtn_byte.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn_byte[i]="+rtn_byte[i]);
+            }
+
+            char [] rtn_char = mJniArrayTest.charArray(JniArrayTest.char_array);
+            for(int i=0;i<rtn_char.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn_char[i]="+rtn_char[i]);
+            }
+
+            short [] rtn_short = mJniArrayTest.shortArray(JniArrayTest.short_array);
+            for(int i=0;i<rtn_short.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn_short[i]="+rtn_short[i]);
+            }
+
+            int [] rtn_int = mJniArrayTest.intArray(JniArrayTest.int_array);
+            for(int i=0;i<rtn_int.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn_int[i]="+rtn_int[i]);
+            }
+
+            long [] rtn_long = mJniArrayTest.longArray(JniArrayTest.long_array);
+            for(int i=0;i<rtn_long.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn_long[i]="+rtn_long[i]);
+            }
+
+            float [] rtn_float = mJniArrayTest.floatArray(JniArrayTest.float_array);
+            for(int i=0;i<rtn_float.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn_float[i]="+rtn_float[i]);
+            }
+
+            double [] rtn_double = mJniArrayTest.doubleArray(JniArrayTest.double_array);
+            for(int i=0;i<rtn_double.length;i++) {
+                Log.d(TAG,"返回至Java层的rtn_double[i]="+rtn_double[i]);
+            }
+
+
             mJniArrayTest.stringArray(JniArrayTest.string_array);
         }
     }

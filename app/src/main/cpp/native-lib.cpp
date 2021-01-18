@@ -117,13 +117,117 @@ Java_com_example_myapplication_JniFuncTest_transform(JNIEnv *env, jobject thiz, 
 }
 
 extern "C"
+JNIEXPORT jbooleanArray JNICALL
+Java_com_example_myapplication_JniArrayTest_booleanArray(JNIEnv *env, jobject thiz, jbooleanArray array) {
+    // TODO: implement booleanArray()
+    jboolean* arr1;
+    int length = env->GetArrayLength(array);
+    arr1 = env->GetBooleanArrayElements(array,JNI_FALSE);
+    for(int i=0;i<length;i++) {
+        LOGD("arr1[%d]=%d",i,arr1[i]);
+    }
+    // 利用GetBooleanArrayRegion()函数将传入的整形数组转存到C/C++层的jboolean arr2[length];
+    jboolean arr2[length];
+    env->GetBooleanArrayRegion(array,0,length,arr2);
+    for(int i=0;i<length;i++) {
+        LOGD("arr2[%d]=%d",i,arr2[i]);
+    }
+    // 在C/C++层中调用NewBooleanArray()函数创建jbooleanArray,再利用SetBooleanArrayRegion()为其赋值，最终return到Java层；
+    jbooleanArray rtn_jbooleanarray = env->NewBooleanArray(length);
+    // 使用arr1或arr2都是可以的；
+    //env->SetBooleanArrayRegion(rtn_jintarray,0,length,arr1);
+    env->SetBooleanArrayRegion(rtn_jbooleanarray,0,length,arr2);
+
+    // 返回至Java层的boolean[]
+    return rtn_jbooleanarray;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_example_myapplication_JniArrayTest_byteArray(JNIEnv *env, jobject thiz, jbyteArray array) {
+    // TODO: implement byteArray()
+    jbyte* arr1;
+    int length = env->GetArrayLength(array);
+    arr1 = env->GetByteArrayElements(array,JNI_FALSE);
+    for(int i=0;i<length;i++) {
+        LOGD("arr1[%d]=%d",i,arr1[i]);
+    }
+    // 利用GetByteArrayRegion()函数将传入的整形数组转存到C/C++层的jbyte arr2[length];
+    jbyte arr2[length];
+    env->GetByteArrayRegion(array,0,length,arr2);
+    for(int i=0;i<length;i++) {
+        LOGD("arr2[%d]=%d",i,arr2[i]);
+    }
+    // 在C/C++层中调用NewByteArray()函数创建jbyteArray,再利用SetByteArrayRegion()为其赋值，最终return到Java层；
+    jbyteArray rtn_jbytearray = env->NewByteArray(length);
+    // 使用arr1或arr2都是可以的；
+    //env->SetByteArrayRegion(rtn_jbytearray,0,length,arr1);
+    env->SetByteArrayRegion(rtn_jbytearray,0,length,arr2);
+
+    // 返回至Java层的byte[]
+    return rtn_jbytearray;
+}
+
+extern "C"
+JNIEXPORT jcharArray JNICALL
+Java_com_example_myapplication_JniArrayTest_charArray(JNIEnv *env, jobject thiz, jcharArray array) {
+    // TODO: implement charArray()
+    jchar* arr1;
+    int length = env->GetArrayLength(array);
+    arr1 = env->GetCharArrayElements(array,JNI_FALSE);
+    for(int i=0;i<length;i++) {
+        LOGD("arr1[%d]=%c",i,arr1[i]);
+    }
+    // 利用GetCharArrayRegion()函数将传入的整形数组转存到C/C++层的jchar arr2[length];
+    jchar arr2[length];
+    env->GetCharArrayRegion(array,0,length,arr2);
+    for(int i=0;i<length;i++) {
+        LOGD("arr2[%d]=%c",i,arr2[i]);
+    }
+    // 在C/C++层中调用NewCharArray()函数创建jcharArray,再利用SetCharArrayRegion()为其赋值，最终return到Java层；
+    jcharArray rtn_jchararray = env->NewCharArray(length);
+    // 使用arr1或arr2都是可以的；
+    //env->SetCharArrayRegion(rtn_jchararray,0,length,arr1);
+    env->SetCharArrayRegion(rtn_jchararray,0,length,arr2);
+
+    // 返回至Java层的char[]
+    return rtn_jchararray;
+}
+
+extern "C"
+JNIEXPORT jshortArray JNICALL
+Java_com_example_myapplication_JniArrayTest_shortArray(JNIEnv *env, jobject thiz, jshortArray array) {
+    // TODO: implement shortArray()
+    jshort* arr1;
+    int length = env->GetArrayLength(array);
+    arr1 = env->GetShortArrayElements(array,JNI_FALSE);
+    for(int i=0;i<length;i++) {
+        LOGD("arr1[%d]=%d",i,arr1[i]);
+    }
+    // 利用GetShortArrayRegion()函数将传入的整形数组转存到C/C++层的jshort arr2[length];
+    jshort arr2[length];
+    env->GetShortArrayRegion(array,0,length,arr2);
+    for(int i=0;i<length;i++) {
+        LOGD("arr2[%d]=%d",i,arr2[i]);
+    }
+    // 在C/C++层中调用NewShortArray()函数创建jcharArray,再利用SetShortArrayRegion()为其赋值，最终return到Java层；
+    jshortArray rtn_jshortarray = env->NewShortArray(length);
+    // 使用arr1或arr2都是可以的；
+    //env->SetShortArrayRegion(rtn_jshortarray,0,length,arr1);
+    env->SetShortArrayRegion(rtn_jshortarray,0,length,arr2);
+
+    // 返回至Java层的short[]
+    return rtn_jshortarray;
+}
+
+extern "C"
 JNIEXPORT jintArray JNICALL
 Java_com_example_myapplication_JniArrayTest_intArray(JNIEnv *env, jobject thiz, jintArray array) {
     // TODO: implement intArray()
     // 利用GetArrayLength()函数将传入的整形数组转存到C/C++层的jint * arr1
     jint * arr1;
     int length = env->GetArrayLength(array);
-    arr1 = env->GetIntArrayElements(array,0);
+    arr1 = env->GetIntArrayElements(array,JNI_FALSE);
     for(int i=0;i<length;i++) {
         LOGD("arr1[%d]=%d",i,arr1[i]);
     }
@@ -153,6 +257,64 @@ Java_com_example_myapplication_JniArrayTest_intArray(JNIEnv *env, jobject thiz, 
 
     // 返回至Java层的int[]
     return rtn_jintarray;
+}
+
+extern "C"
+JNIEXPORT jlongArray JNICALL
+Java_com_example_myapplication_JniArrayTest_longArray(JNIEnv *env, jobject thiz, jlongArray array) {
+    // TODO: implement longArray()
+    jlong* arr1;
+    int length = env->GetArrayLength(array);
+    arr1 = env->GetLongArrayElements(array,JNI_FALSE);
+    for(int i=0;i<length;i++) {
+        LOGD("arr1[%d]=%d",i,arr1[i]);
+    }
+    // 利用GetLongArrayRegion()函数将传入的整形数组转存到C/C++层的jlong arr2[length];
+    jlong arr2[length];
+    env->GetLongArrayRegion(array,0,length,arr2);
+    for(int i=0;i<length;i++) {
+        LOGD("arr2[%d]=%d",i,arr2[i]);
+    }
+    // 在C/C++层中调用NewLongArray()函数创建jlongArray,再利用SetLongArrayRegion()为其赋值，最终return到Java层；
+    jlongArray rtn_jlongarray = env->NewLongArray(length);
+    // 使用arr1或arr2都是可以的；
+    //env->SetLongArrayRegion(rtn_jlongarray,0,length,arr1);
+    env->SetLongArrayRegion(rtn_jlongarray,0,length,arr2);
+
+    // 返回至Java层的long[]
+    return rtn_jlongarray;
+}
+
+extern "C"
+JNIEXPORT jfloatArray JNICALL
+Java_com_example_myapplication_JniArrayTest_floatArray(JNIEnv *env, jobject thiz, jfloatArray array) {
+    // TODO: implement floatArray()
+    jfloat* arr1;
+    int length = env->GetArrayLength(array);
+    arr1 = env->GetFloatArrayElements(array,JNI_FALSE);
+    for(int i=0;i<length;i++) {
+        LOGD("arr1[%d]=%d",i,arr1[i]);
+    }
+    // 利用GetFloatArrayRegion()函数将传入的整形数组转存到C/C++层的jlong arr2[length];
+    jfloat arr2[length];
+    env->GetFloatArrayRegion(array,0,length,arr2);
+    for(int i=0;i<length;i++) {
+        LOGD("arr2[%d]=%d",i,arr2[i]);
+    }
+    // 在C/C++层中调用NewLongArray()函数创建jlongArray,再利用SetLongArrayRegion()为其赋值，最终return到Java层；
+    jfloatArray rtn_jfloatarray = env->NewFloatArray(length);
+    // 使用arr1或arr2都是可以的；
+    //env->SetFloatArrayRegion(rtn_jfloatarray,0,length,arr1);
+    env->SetFloatArrayRegion(rtn_jfloatarray,0,length,arr2);
+
+    // 返回至Java层的long[]
+    return rtn_jfloatarray;
+}
+
+extern "C"
+JNIEXPORT jdoubleArray JNICALL
+Java_com_example_myapplication_JniArrayTest_doubleArray(JNIEnv *env, jobject thiz, jdoubleArray num) {
+    // TODO: implement doubleArray()
 }
 
 // 在java中，String[]类型是对象，所以对应C++中的数组为jobjectArray
