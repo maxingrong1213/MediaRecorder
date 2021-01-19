@@ -293,15 +293,15 @@ Java_com_example_myapplication_JniArrayTest_floatArray(JNIEnv *env, jobject thiz
     int length = env->GetArrayLength(array);
     arr1 = env->GetFloatArrayElements(array,JNI_FALSE);
     for(int i=0;i<length;i++) {
-        LOGD("arr1[%d]=%d",i,arr1[i]);
+        LOGD("arr1[%d]=%f",i,arr1[i]);
     }
-    // 利用GetFloatArrayRegion()函数将传入的整形数组转存到C/C++层的jlong arr2[length];
+    // 利用GetFloatArrayRegion()函数将传入的整形数组转存到C/C++层的jfloat arr2[length];
     jfloat arr2[length];
     env->GetFloatArrayRegion(array,0,length,arr2);
     for(int i=0;i<length;i++) {
-        LOGD("arr2[%d]=%d",i,arr2[i]);
+        LOGD("arr2[%d]=%f",i,arr2[i]);
     }
-    // 在C/C++层中调用NewLongArray()函数创建jlongArray,再利用SetLongArrayRegion()为其赋值，最终return到Java层；
+    // 在C/C++层中调用NewFloatArray()函数创建jfloatArray,再利用SetFloatArrayRegion()为其赋值，最终return到Java层；
     jfloatArray rtn_jfloatarray = env->NewFloatArray(length);
     // 使用arr1或arr2都是可以的；
     //env->SetFloatArrayRegion(rtn_jfloatarray,0,length,arr1);
@@ -313,15 +313,34 @@ Java_com_example_myapplication_JniArrayTest_floatArray(JNIEnv *env, jobject thiz
 
 extern "C"
 JNIEXPORT jdoubleArray JNICALL
-Java_com_example_myapplication_JniArrayTest_doubleArray(JNIEnv *env, jobject thiz, jdoubleArray num) {
+Java_com_example_myapplication_JniArrayTest_doubleArray(JNIEnv *env, jobject thiz, jdoubleArray array) {
     // TODO: implement doubleArray()
+    jdouble* arr1;
+    int length = env->GetArrayLength(array);
+    arr1 = env->GetDoubleArrayElements(array,JNI_FALSE);
+    for(int i=0;i<length;i++) {
+        LOGD("arr1[%d]=%lf",i,arr1[i]);
+    }
+    // 利用GetDoubleArrayRegion()函数将传入的整形数组转存到C/C++层的jdouble arr2[length];
+    jdouble arr2[length];
+    env->GetDoubleArrayRegion(array,0,length,arr2);
+    for(int i=0;i<length;i++) {
+        LOGD("arr2[%d]=%lf",i,arr2[i]);
+    }
+    // 在C/C++层中调用NewDoubleArray()函数创建jdoubleArray,再利用SetDoubleArrayRegion()为其赋值，最终return到Java层；
+    jdoubleArray rtn_jdoublearray = env->NewDoubleArray(length);
+    // 使用arr1或arr2都是可以的；
+    //env->SetDoubleArrayRegion(rtn_jdoublearray,0,length,arr1);
+    env->SetDoubleArrayRegion(rtn_jdoublearray,0,length,arr2);
+
+    // 返回至Java层的long[]
+    return rtn_jdoublearray;
 }
 
 // 在java中，String[]类型是对象，所以对应C++中的数组为jobjectArray
 extern "C"
 JNIEXPORT jboolean JNICALL
-Java_com_example_myapplication_JniArrayTest_stringArray(JNIEnv *env, jobject thiz,
-                                                        jobjectArray str) {
+Java_com_example_myapplication_JniArrayTest_stringArray(JNIEnv *env, jobject thiz, jobjectArray str) {
     // TODO: implement StringArray()
     int length = env->GetArrayLength(str);
     for(int i=0;i<length;i++) {

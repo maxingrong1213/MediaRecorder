@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG,"返回至Java层的rtn_double[i]="+rtn_double[i]);
             }
 
-
             mJniArrayTest.stringArray(JniArrayTest.string_array);
         }
     }
