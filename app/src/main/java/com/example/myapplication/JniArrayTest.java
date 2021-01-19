@@ -10,8 +10,7 @@ public class JniArrayTest {
     static float float_array[] = new float[] { 1.1f, 1.2f, 1.3f, 1.4f, 1.5f };
     static double double_array[] = new double[] { 1.1, 1.2, 1.3, 1.4, 1.5 };
 
-    static String string_array[] = new String[] { "we", "are", "friends" };
-    static Integer [] integer_array = new Integer[] {2,3,4,5,6};
+    static String string_array[] = new String[] { "we", "are", "family" };
 
     static {
         System.loadLibrary("native-lib");

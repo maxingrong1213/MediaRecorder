@@ -43,6 +43,12 @@
             android:layout_height="wrap_content"
             android:text="JniArrayTest" />
 
+        <Button
+            android:id="@+id/button_jnistringtest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="JniStringTest" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

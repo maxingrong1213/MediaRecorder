@@ -365,3 +365,43 @@ Java_com_example_myapplication_JniArrayTest_stringArray(JNIEnv *env, jobject thi
     return JNI_TRUE;
 }
 
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_example_myapplication_JniStringTest_teststring(JNIEnv *env, jobject thiz, jstring str) {
+    // TODO: implement teststring()
+    jsize length = env->GetStringLength(str);
+    jsize lengthutf = env->GetStringUTFLength(str);
+    LOGD("String的长度length为：%d",length);
+    LOGD("String的长度lengthutf为：%d",lengthutf);
+
+    // 返回的是jchar类型，UTF-16编码的宽字符串(jchar*)
+    const jchar* jchar_str = env->GetStringChars(str,JNI_FALSE);
+    LOGD("jchar_str为：%s",jchar_str);
+    LOGD("jchar_str+1为：%s",jchar_str+1);
+    LOGD("jchar_str+2为：%s",jchar_str+2);
+    // 我把它转换成UTF-8格式的char*来看下
+    const char* char_str = (char*)env->GetStringChars(str,JNI_FALSE);
+    LOGD("char_str为：%s",char_str);
+    LOGD("char_str+1为：%s",char_str+1);
+    LOGD("char_str+2为：%s",char_str+2);
+    jstring newstring = env->NewString(jchar_str,length);
+
+    jchar buf[length];
+    env->GetStringRegion(newstring,0,length,buf);
+    for(int i=0;i<length;i++) {
+        LOGD("buf[%d]=%c",i,buf[i]);
+    }
+
+    // 返回的是char类型，UTF-8编码的字符串(char*)
+    const char* char_str_utf = env->GetStringUTFChars(str, JNI_FALSE);
+    LOGD("char_str_utf为：%s",char_str_utf);
+
+    jstring newstring_utf = env->NewStringUTF(char_str_utf);
+    char buf_utf[lengthutf];
+    env->GetStringUTFRegion(newstring_utf,0,lengthutf,buf_utf);
+    for(int i=0;i<lengthutf;i++) {
+        LOGD("buf_utf[%d]=%c",i,buf_utf[i]);
+    }
+
+    return str;
+}

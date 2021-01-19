@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button_jniarraytest = (Button) findViewById(R.id.button_jniarraytest);
         button_jniarraytest.setOnClickListener(this);
 
+        Button button_jnistringtest = (Button) findViewById(R.id.button_jnistringtest);
+        button_jnistringtest.setOnClickListener(this);
+
         // Example of a call to a native method
         MediaRecorder mMediaRecorder= new MediaRecorder();
         mMediaRecorder.native_init();
@@ -83,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             mJniArrayTest.stringArray(JniArrayTest.string_array);
+        } else if (v.getId() == R.id.button_jnistringtest) {
+            JniStringTest mJniStringTest = new JniStringTest();
+            String rtn = mJniStringTest.teststring(JniStringTest.str);
+            Log.d(TAG,"返回的String为： "+rtn);
+
         }
     }
 }
